@@ -36,7 +36,7 @@ void FindXAndY()
         double k2 = Convert.ToDouble(Console.ReadLine());
         Console.WriteLine("add B2.");
         double b2 = Convert.ToDouble(Console.ReadLine());
-        double x = (b1 - b1)/(k1 - k2);
+        double x = (b2 - b1)/(k1 - k2);
         double y = x * k1 + b1;
         Console.WriteLine($"The point of cross is in x = {x}; y = {y}");
     }
