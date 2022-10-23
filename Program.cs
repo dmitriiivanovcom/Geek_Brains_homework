@@ -1,44 +1,94 @@
-﻿// ex one
-/*
-int CurrentOfPositive(int num)
+﻿/*
+//ex one
+double [,] Create2DRandomArray() //creating random double array with two decimal places
 {
-    int current = 0;
-    int i = 0;
-    do
-    {
-        Console.WriteLine("Add next one!");
-        double a = Convert.ToDouble(Console.ReadLine());
-        if(a > 0) 
+    Console.WriteLine("Input the number of rows: ");
+    int rows = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Input the number of columns: ");
+    int columns = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Input the min possible value: ");
+    double min = Convert.ToDouble(Console.ReadLine());
+    Console.WriteLine("Input the max possible value: ");
+    double max = Convert.ToDouble(Console.ReadLine());
+
+    double[,] array = new double[rows, columns];
+    for(int i = 0; i < rows; i++)//full by the lines
+        for(int j = 0; j < columns; j++) 
         {
-            current++;
-            i++;
+            array[i, j] = new Random().NextDouble() * ((max) - (min)) + (min); //randoming on crutches
+            array[i, j] = Math.Round(array[i, j], 2);//rounding
         }
-        else i++;
-    }
-    while(i < num);
-    return current;
+    return array;
 }
-Console.WriteLine("How many elements you want to check?");
-int num = Convert.ToInt32(Console.ReadLine());
-int nomOfPositive = CurrentOfPositive(num);
-Console.WriteLine("Number of positive digits is " + nomOfPositive);
-*/
+
+void Print2DArray(double[,] array)// its fo check Creating2DRandomArray's working
+{
+    for(int i = 0; i < array.GetLength(0); i++)
+    { 
+        Console.WriteLine();
+        for(int j = 0; j < array.GetLength(1); j++)
+            Console.Write(array[i, j] + " | ");
+    }
+    Console.WriteLine();
+}
+
+double[,] newone = Create2DRandomArray();
+Print2DArray(newone);
 
 // ex two
-/*
-void FindXAndY()
-    {
-        Console.WriteLine("add K1.");
-        double k1 = Convert.ToDouble(Console.ReadLine());
-        Console.WriteLine("add B1.");
-        double b1 = Convert.ToDouble(Console.ReadLine());
-        Console.WriteLine("add K2.");
-        double k2 = Convert.ToDouble(Console.ReadLine());
-        Console.WriteLine("add B2.");
-        double b2 = Convert.ToDouble(Console.ReadLine());
-        double x = (b2 - b1)/(k1 - k2);
-        double y = x * k1 + b1;
-        Console.WriteLine($"The point of cross is in x = {x}; y = {y}");
+
+void FindElementOf2DArray(double[,] array)
+{
+    Console.WriteLine("Now, lets find your element");
+    Console.WriteLine("Input the number of row:");
+    int row = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Input the number of column:");
+    int column = Convert.ToInt32(Console.ReadLine());
+
+    if(row < array.GetLength(0) && column < array.GetLength(1))
+        Console.WriteLine($"Element number {row} in {column} raw is {array[row - 1, column - 1]}");
+        // added '-1' to find position, no index.
+    else Console.WriteLine($"There is no such cell in the array");
+}
+
+FindElementOf2DArray(newone);
+
+// ex three
+//I know how to solveh the problem using one more array
+//But it isn't too funny
+
+void GenerateArrayWithAverage()
+{
+    Console.WriteLine("Input the number of row.");
+    int row = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Input the number of column.");
+    int column = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Input the min possible value: ");
+    double min = Convert.ToDouble(Console.ReadLine());
+    Console.WriteLine("Input the max possible value: ");
+    double max = Convert.ToDouble(Console.ReadLine());
+    
+    double [,] array = new double[row + 1, column];// I use double because I dont want to make second array
+    for(int i = 0; i < row; i++)                   // +1 row to take memory for averge numbers
+        for(int j = 0; j < column; j++)
+        {
+            array[i, j] = new Random().NextDouble() * ((max) - (min)) + (min);
+            array[i, j] = Math.Round(array[i, j], 0); // pseudo int number's crafting
+            array[row, j] += array[i, j];// add to sum
+        }
+    for(int i = 0; i + 1 < array.GetLength(0); i++)// array's printing
+    { 
+        for(int j = 0; j < array.GetLength(1); j++)
+            Console.Write(array[i, j] + " | ");
+        Console.WriteLine();
     }
-FindXAndY();
+    Console.WriteLine("Averge numbers:");
+    for(int i = 0; i < array.GetLength(1); i++)// averge printing (last row)
+    {
+        double average = Math.Round(array[row, i] / row, 1);
+        Console.Write(average + "|");
+    }
+}
+
+GenerateArrayWithAverage();
 */
